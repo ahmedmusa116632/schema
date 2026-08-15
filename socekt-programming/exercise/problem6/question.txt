@@ -1,7 +1,0 @@
-Extend the single client – single server chatting application developed in Q5 using 
-connection-oriented sockets to a multiple client – single server chatting application. The 
-single server should be able to chat simultaneously with multiple clients. In order to do this, 
-you will have to implement the server program using threads. Once a client program contacts 
-a server, the server process spawns a thread that will handle the client. The communication 
-between a client and its server thread will be like a single client-single server chatting 
-application.

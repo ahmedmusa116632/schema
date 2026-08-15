@@ -1,5 +1,0 @@
-This is line number one.
-This is line number two.
-Computer Networks Lab.
-Python Socket Programming.
-End of file.

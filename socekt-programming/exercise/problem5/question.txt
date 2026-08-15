@@ -1,8 +1,0 @@
-Develop a simple chatting application using (i) Connection-oriented and (ii) Connectionless 
-sockets. In each case, when the user presses the “Enter” key, whatever characters have been 
-typed by the user until then are transferred to the other end. You can also assume that for 
-every message entered from one end, a reply must come from the other end, before another 
-message could be sent. In other words, more than one message cannot be sent from a side 
-before receiving a response from the other side. For connectionless communication, assume 
-the maximum number of characters that can be transferred in a message to be 1000. The chat 
-will be stopped by pressing Ctrl+C on both sides. 
