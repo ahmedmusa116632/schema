@@ -1,0 +1,259 @@
+R1)
+
+en
+conf term
+hostname R1-ISP
+banner motd "This is lab router R1-ISP. Authorized access only."
+
+enable secret pstu
+
+line console 0
+password pstu
+login
+exit
+
+line vty 0 4
+password pstu
+login
+exit
+
+interface fa0/0
+ip address 172.169.254.62 255.255.255.192
+no shutdown
+exit
+
+
+interface s0/0/0
+ip address 172.169.254.129 255.255.255.252
+clock rate 64000
+no shutdown
+exit
+
+
+interface s0/0/1
+ip address 172.169.254.133 255.255.255.252
+clock rate 64000
+no shutdown
+exit
+
+
+
+
+ip route 172.169.254.96 255.255.255.240 172.169.254.130 
+ip route 172.169.254.64 255.255.255.224 172.169.254.130 
+ip route 172.169.254.112 255.255.255.240172.169.254.134 
+
+end 
+wr
+
+
+
+
+
+
+
+
+
+
+
+R2)
+
+
+en
+conf term
+hostname R2-Central
+banner motd "This is lab router R2-Central. Authorized access only."
+
+enable secret pstu
+
+line console 0
+password pstu
+login
+exit
+
+line vty 0 4
+password pstu
+login
+exit
+
+interface fa0/0
+ip address 172.169.254.110 255.255.255.240
+no shutdown
+exit
+
+interface fa0/1
+ip address 172.169.254.94 255.255.255.224
+no shutdown
+exit
+
+
+interface s0/0/0
+ip address 172.169.254.130 255.255.255.252
+clock rate
+no shutdown
+exit
+
+
+interface s0/0/1
+ip address 172.169.254.137 255.255.255.252
+clock rate
+no shutdown
+exit
+
+
+
+
+ip route 0.0.0.0 0.0.0.0 172.169.254.129
+
+end 
+wr
+
+
+
+R3)
+
+
+en
+conf term
+hostname R3-ISP
+banner motd "This is lab router R3-ISP. Authorized access only."
+
+enable secret pstu
+
+line console 0
+password pstu
+login
+exit
+
+line vty 0 4
+password pstu
+login
+exit
+
+interface fa0/0
+ip address 172.169.254.126 255.255.255.240
+no shutdown
+exit
+
+
+interface s0/0/0
+ip address 172.169.254.138 255.255.255.252
+clock rate 64000
+no shutdown
+exit
+
+
+interface s0/0/1
+ip address 172.169.254.134 255.255.255.252
+clock rate 64000
+no shutdown
+exit
+
+
+
+
+ip route 0.0.0.0 0.0.0.0 172.169.254.133
+
+end 
+wr
+
+
+SW1)
+
+
+en
+conf term
+hostname SW1
+banner motd "This is lab switch SW1."
+
+enable secret pstu
+
+line console 0
+password pstu
+login
+exit
+
+line vty 0 4
+password pstu
+login
+exit
+
+
+
+
+SW2A)
+
+en
+conf term
+hostname SW2A
+banner motd "This is lab switch SW2A"
+
+enable secret pstu
+
+line console 0
+password pstu
+login
+exit
+
+line vty 0 4
+password pstu
+login
+exit
+
+
+SW2B)
+
+
+en
+conf term
+hostname SW2B
+banner motd "This is lab switch SW2B"
+
+enable secret pstu
+
+line console 0
+password pstu
+login
+exit
+
+line vty 0 4
+password pstu
+login
+exit
+
+interface vlan1 
+ip address 172.169.254.99 255.255.255.240
+
+
+
+SW3)
+
+en
+conf term
+hostname SW3
+banner motd "This is lab switch SW3"
+
+enable secret pstu
+
+line console 0
+password pstu
+login
+exit
+
+line vty 0 4
+password pstu
+login
+exit
+
+
+
+
+
+
+
+
+
+
+
+
+

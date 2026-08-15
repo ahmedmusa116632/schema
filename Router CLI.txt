@@ -1,0 +1,394 @@
+Router CLI
+
+For R1-ISP
+
+enable
+configure terminal
+
+|-------- ? dile sob command eshe pore---------|
+
+|------------Housekeeping------------|
+
+
+hostname R1-ISP
+
+enable secret csepstu
+
+banner motd "This is lab router R1-ISP. Authorized access only."
+
+(console)
+line console 0
+password csepstu
+login
+exit
+
+
+(telnet)
+line vty 0 4
+password csepstu
+login
+exit
+
+|-----------LAN Interface--------------|
+interface fa0/0
+ip address 10.29.101.62 255.255.255.192
+no shutdown
+exit
+
+|-----------WAN to R2-Central-----------|
+interface s0/0/0
+ip address 10.29.101.129 255.255.255.252
+clock rate 56000
+no shutdown // dewar dorkar nai
+exit
+
+|-----------WAN to R3-ISP--------|
+interface s0/0/1
+ip address 10.29.101.133 255.255.255.252
+clock rate 5000
+no shutdown // dewar dorkar nai
+exit
+
+
+|-----------------Static Routes--------------------|
+
+
+! R2-Central LAN 1
+ip route 10.29.101.64 255.255.255.224 10.29.101.130
+
+! R2-Central LAN 2
+ip route 10.29.101.96 255.255.255.240 10.29.101.130
+
+! R3-ISP LAN
+ip route 10.29.101.112 255.255.255.240 10.29.101.134
+
+end
+
+copy running-config startup-config
+or
+wr
+
+
+
+|-----------------------------------------------------------------------|
+For R2-ISP
+
+enable
+configure terminal
+
+
+|------------Housekeeping------------|
+(secret)
+
+hostname R2-Central
+
+enable secret csepstu
+
+banner motd "This is lab router R2-ISP. Authorized access only."
+
+(console)
+line console 0
+password csepstu
+login
+exit
+
+
+(telnet)
+line vty 0 4
+password csepstu
+login
+exit
+
+
+|-----------LAN Interface--------------|
+description R-2 Central to LAN 1
+interface fa0/0
+ip address 10.29.101.110 255.255.255.240
+no shutdown
+exit
+
+|-----------LAN Interface--------------|
+description R-2 Central to LAN 2
+interface fa0/1
+ip address 10.29.101.94 255.255.255.224
+no shutdown
+exit
+
+|-----------WAN to R1-Central-----------|
+interface s0/0/0
+ip address 10.29.101.130 255.255.255.252
+clock rate 56000
+no shutdown // dewar dorkar nai
+exit
+
+|-----------WAN to R3-ISP--------|
+interface s0/0/1
+ip address 10.29.101.137 255.255.255.252
+clock rate 56000
+no shutdown // dewar dorkar nai
+exit
+
+|-----------------Static Routes--------------------|
+
+! Default Route to ISP
+ip route 0.0.0.0 0.0.0.0 10.29.101.129
+
+end
+copy running-config startup-config
+or
+wr
+
+
+|-----------------------------------------------------------------------|
+For R3-ISP
+
+enable
+configure terminal
+
+router (config)# ? ---- dile sob command eshe pore
+
+|------------Housekeeping------------|
+(secret)
+
+hostname R3-ISP
+
+enable secret csepstu
+
+banner motd "This is lab router R3-ISP. Authorized access only."
+
+(console)
+line console 0
+password csepstu
+login
+exit
+
+
+(telnet)
+line vty 0 4
+password csepstu
+login
+exit
+
+|-----------LAN Interface--------------|
+interface FastEthernet0/0
+ip address 10.29.101.126 255.255.255.240
+no shutdown
+exit
+
+|-----------WAN to R2-ISP--------|
+interface Serial 0/0/0
+ip address 10.29.101.138 255.255.255.252
+clock rate 56000
+no shutdown
+exit
+
+|-----------WAN to R1-ISP--------|
+Interface Serial0/0/1
+ip address 10.29.101.134 255.255.255.252
+clock rate 56000
+no shutdown
+exit
+
+
+|-----------------Static Routes--------------------|
+
+! Default Route to ISP
+ip route 0.0.0.0 0.0.0.0 10.29.101.133
+
+end
+copy running-config startup-config
+or
+wr
+
+
+|-----------------------------------------------------------------------|
+
+Switch-1
+enable
+
+en
+conf term
+hostname SW1
+enable secret csepstu
+line console 0
+password csepstu
+login
+exit
+
+line vty 0 4
+password csepstu
+login
+exit
+
+banner motd *This is lab router switch .*
+
+|-----------------------------------------------------------------------|
+
+Switch-3
+enable
+
+en
+conf term
+hostname SW3
+enable secret csepstu
+line console 0
+password csepstu
+login
+exit
+
+line vty 0 4
+password csepstu
+login
+exit
+
+banner motd "This is lab router switch ."
+
+|-----------------------------------------------------------------------|
+ 
+ 
+Switch-2A
+enable
+
+en
+conf term
+hostname SW2A
+enable secret csepstu
+line console 0
+password csepstu
+login
+exit
+
+line vty 0 4
+password csepstu
+login
+exit
+
+banner motd "This is lab router switch SW-2A-Central. Authorized access only."
+
+
+interface vlan 1
+ip address 10.29.101.98 255.255.255.240
+
+
+|-----------------------------------------------------------------------|
+ 
+ 
+Switch-2B
+enable
+
+en
+conf term
+hostname SW2B
+enable secret csepstu
+line console 0
+password csepstu
+login
+exit
+
+line vty 0 4
+password csepstu
+login
+exit
+
+banner motd "This is lab router switch SW-2B-Central. Authorized access only."
+
+|-----------------------------------------------------------------------|
+
+
+PC1A
+IP:
+10.29.101.1
+
+Mask:
+255.255.255.192
+
+Gateway:
+10.29.101.62
+
+DNS:
+10.29.101.93
+
+
+PC1B
+IP:
+10.29.101.97
+
+Mask:
+255.255.255.240
+
+Gateway:
+10.29.101.110
+
+DNS:
+10.29.101.93
+
+
+
+PC1C
+IP:
+10.29.101.113
+
+Mask:
+255.255.255.240
+
+Gateway:
+10.29.101.126
+
+DNS:
+10.29.101.93
+
+
+
+home Router
+IP:
+10.29.101.2
+
+Mask:
+255.255.255.192
+
+Gateway:
+10.29.101.62
+
+DNS:
+10.29.101.93
+
+
+
+DNS Server
+IP:
+10.29.101.93
+Mask:
+255.255.255.224
+
+Gateway:
+10.29.101.94
+
+DNS:
+10.29.101.93
+
+DNS:on
+name:pstu.ac.bd
+add:10.29.101.93
+
+
+
+DHCP server:
+
+IP:
+10.29.101.125
+Mask:
+255.255.255.224
+
+Gateway:
+10.29.101.126
+
+DNS:
+10.29.101.125
+
+DHCP:on
+gateway:10.29.101.126
+DNS:
+10.29.101.125
+
+start ip:192.168.1.96
+mask:255.255.255.224
